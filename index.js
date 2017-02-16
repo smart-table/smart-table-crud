@@ -1,5 +1,5 @@
 import {compose} from 'smart-table-operators';
-import {get,replace,patch,remove,insert} from './crud';
+import {get, replace, patch, remove, insert} from './crud';
 
 export default function ({data, table}) {
   const mutateData = (newData) => {
@@ -11,19 +11,22 @@ export default function ({data, table}) {
   return {
     update(index, newVal){
       const exec = compose(
-        replace(data,newVal),
+        replace(data, newVal),
         refresh
       );
       return exec(index);
     },
     patch(index, newVal){
       const exec = compose(
-        patch(data,newVal),
+        patch(data, newVal),
         refresh);
       return exec(index);
     },
     remove: compose(remove(data), refresh),
-    insert: compose(insert(data), refresh),
+    insert(newVal, index = 0){
+      const exec = compose(insert(data, newVal), refresh);
+      return exec(index);
+    },
     get: get(data)
   };
 }

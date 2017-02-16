@@ -32,7 +32,7 @@ function mockTable () {
 }
 
 export default zora()
-  .only('update(full replacement) using the index', function * (t) {
+  .test('update(full replacement) using the index', function * (t) {
     const data = getData();
     const table = mockTable();
     const crudTable = crud({data, table});
@@ -49,24 +49,24 @@ export default zora()
       {name: 'blah', lastName: 'woot', age: 69}
     ]);
   })
-  .test('update(full replacement) using the item reference', function * (t) {
-    const data = getData();
-    const table = mockTable();
-    const crudTable = crud({data, table});
-    crudTable.update(data[1], {name: 'edited'});
-    t.equal(table.getExecCalls(), 1);
-    // t.deepEqual(table.getDispatchCalls(), [{
-    //   event: 'ROW_UPDATED',
-    //   value: {index: 1, value: {name: 'edited'}}
-    // }]);
-    t.deepEqual(data, [
-      {name: 'bob', lastName: 'leponge', age: 129},
-      {name: 'edited'},
-      {name: 'raymond', lastName: 'deubaze', age: 25},
-      {name: 'blah', lastName: 'woot', age: 69}
-    ]);
-  })
-  .only('patch(partial update) using the index', function * (t) {
+  // .test('update(full replacement) using the item reference', function * (t) {
+  //   const data = getData();
+  //   const table = mockTable();
+  //   const crudTable = crud({data, table});
+  //   crudTable.update(data[1], {name: 'edited'});
+  //   t.equal(table.getExecCalls(), 1);
+  //   // t.deepEqual(table.getDispatchCalls(), [{
+  //   //   event: 'ROW_UPDATED',
+  //   //   value: {index: 1, value: {name: 'edited'}}
+  //   // }]);
+  //   t.deepEqual(data, [
+  //     {name: 'bob', lastName: 'leponge', age: 129},
+  //     {name: 'edited'},
+  //     {name: 'raymond', lastName: 'deubaze', age: 25},
+  //     {name: 'blah', lastName: 'woot', age: 69}
+  //   ]);
+  // })
+  .test('patch(partial update) using the index', function * (t) {
     const data = getData();
     const table = mockTable();
     const crudTable = crud({data, table});
@@ -83,24 +83,24 @@ export default zora()
       {name: 'blah', lastName: 'woot', age: 69}
     ]);
   })
-  .test('patch(partial update) using the item reference', function * (t) {
-    const data = getData();
-    const table = mockTable();
-    const crudTable = crud({data, table});
-    crudTable.patch(data[1], {name: 'edited', age: 66});
-    t.equal(table.getExecCalls(), 1);
-    // t.deepEqual(table.getDispatchCalls(), [{
-    //   event: 'ROW_PATCHED',
-    //   value: {index: 1, value: {name: 'edited', lastName: 'bar', age: 66}}
-    // }]);
-    t.deepEqual(data, [
-      {name: 'bob', lastName: 'leponge', age: 129},
-      {name: 'edited', lastName: 'bar', age: 66},
-      {name: 'raymond', lastName: 'deubaze', age: 25},
-      {name: 'blah', lastName: 'woot', age: 69}
-    ]);
-  })
-  .only('remove using the index', function * (t) {
+  // .test('patch(partial update) using the item reference', function * (t) {
+  //   const data = getData();
+  //   const table = mockTable();
+  //   const crudTable = crud({data, table});
+  //   crudTable.patch(data[1], {name: 'edited', age: 66});
+  //   t.equal(table.getExecCalls(), 1);
+  //   // t.deepEqual(table.getDispatchCalls(), [{
+  //   //   event: 'ROW_PATCHED',
+  //   //   value: {index: 1, value: {name: 'edited', lastName: 'bar', age: 66}}
+  //   // }]);
+  //   t.deepEqual(data, [
+  //     {name: 'bob', lastName: 'leponge', age: 129},
+  //     {name: 'edited', lastName: 'bar', age: 66},
+  //     {name: 'raymond', lastName: 'deubaze', age: 25},
+  //     {name: 'blah', lastName: 'woot', age: 69}
+  //   ]);
+  // })
+  .test('remove using the index', function * (t) {
     const data = getData();
     const table = mockTable();
     const crudTable = crud({data, table});
@@ -116,22 +116,22 @@ export default zora()
       {name: 'blah', lastName: 'woot', age: 69}
     ]);
   })
-  .test('remove using the reference', function * (t) {
-    const data = getData();
-    const table = mockTable();
-    const crudTable = crud({data, table});
-    crudTable.remove(data[1]);
-    t.equal(table.getExecCalls(), 1);
-    // t.deepEqual(table.getDispatchCalls(), [{
-    //   event: 'ROW_REMOVED',
-    //   value: {index: 1, value: {name: 'foo', lastName: 'bar', age: 39}}
-    // }]);
-    t.deepEqual(data, [
-      {name: 'bob', lastName: 'leponge', age: 129},
-      {name: 'raymond', lastName: 'deubaze', age: 25},
-      {name: 'blah', lastName: 'woot', age: 69}
-    ]);
-  })
+  // .test('remove using the reference', function * (t) {
+  //   const data = getData();
+  //   const table = mockTable();
+  //   const crudTable = crud({data, table});
+  //   crudTable.remove(data[1]);
+  //   t.equal(table.getExecCalls(), 1);
+  //   // t.deepEqual(table.getDispatchCalls(), [{
+  //   //   event: 'ROW_REMOVED',
+  //   //   value: {index: 1, value: {name: 'foo', lastName: 'bar', age: 39}}
+  //   // }]);
+  //   t.deepEqual(data, [
+  //     {name: 'bob', lastName: 'leponge', age: 129},
+  //     {name: 'raymond', lastName: 'deubaze', age: 25},
+  //     {name: 'blah', lastName: 'woot', age: 69}
+  //   ]);
+  // })
   .test('insert at start', function * (t) {
     const data = getData();
     const table = mockTable();
@@ -150,7 +150,7 @@ export default zora()
       {name: 'blah', lastName: 'woot', age: 69}
     ]);
   })
-  .only('insert at index', function * (t) {
+  .test('insert at index', function * (t) {
     const data = getData();
     const table = mockTable();
     const crudTable = crud({data, table});
@@ -168,7 +168,7 @@ export default zora()
       {name: 'blah', lastName: 'woot', age: 69}
     ]);
   })
-  .only('get from index', function * (t) {
+  .test('get from index', function * (t) {
     const data = getData();
     const table = mockTable();
     const crudTable = crud({data, table});
@@ -177,13 +177,13 @@ export default zora()
     // t.equal(table.getDispatchCalls().length, 0);
     t.deepEqual(val, {name: 'raymond', lastName: 'deubaze', age: 25});
   })
-  .test('get from reference', function * (t) {
-    const data = getData();
-    const table = mockTable();
-    const crudTable = crud({data, table});
-    const val = crudTable.get(data[2]);
-    t.equal(table.getExecCalls(), 0);
-    // t.equal(table.getDispatchCalls().length, 0);
-    t.deepEqual(val, {name: 'raymond', lastName: 'deubaze', age: 25});
-  })
+  // .test('get from reference', function * (t) {
+  //   const data = getData();
+  //   const table = mockTable();
+  //   const crudTable = crud({data, table});
+  //   const val = crudTable.get(data[2]);
+  //   t.equal(table.getExecCalls(), 0);
+  //   // t.equal(table.getDispatchCalls().length, 0);
+  //   t.deepEqual(val, {name: 'raymond', lastName: 'deubaze', age: 25});
+  // })
   .run();
