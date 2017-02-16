@@ -1,0 +1,37 @@
+{
+  "name": "smart-table-crud",
+  "version": "0.0.0",
+  "description": "Add CRUD behavior to smart-table",
+  "jsnext:main": "index.js",
+  "main": "index.js",
+  "scripts": {
+    "build:test": "rollup -c ./test/rollup.config.js",
+    "test": "npm run build:test && node ./test/dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smart-table/smart-table-crud.git"
+  },
+  "keywords": [
+    "smart-table",
+    "crud",
+    "grid",
+    "table",
+    "datatable"
+  ],
+  "author": "Laurent Renard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/smart-table/smart-table-crud/issues"
+  },
+  "homepage": "https://github.com/smart-table/smart-table-crud#readme",
+  "devDependencies": {
+    "rollup": "^0.41.4",
+    "rollup-plugin-commonjs": "^7.0.0",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "zora": "^0.3.0"
+  },
+  "dependencies": {
+    "smart-table-operators": "^2.0.0"
+  }
+}
