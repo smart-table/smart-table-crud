@@ -3,8 +3,9 @@
   "version": "0.0.2",
   "description": "Add CRUD behavior to smart-table",
   "jsnext:main": "index.js",
-  "main": "index.js",
+  "main": "./dist/smart-table-crud.js",
   "scripts": {
+    "build": "rollup -c ./rollup.config.js",
     "build:test": "rollup -c ./test/rollup.config.js",
     "test": "npm run build:test && node ./test/dist/index.js"
   },
@@ -27,7 +28,6 @@
   "homepage": "https://github.com/smart-table/smart-table-crud#readme",
   "devDependencies": {
     "rollup": "^0.41.4",
-    "rollup-plugin-commonjs": "^7.0.0",
     "rollup-plugin-node-resolve": "^2.0.0",
     "zora": "^0.3.0"
   },
