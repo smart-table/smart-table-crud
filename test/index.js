@@ -50,7 +50,7 @@ export default zora()
     const table = mockTable();
     const crudTable = crud({data, table});
     crudTable.patch(1, {name: 'edited', age: 66});
-    t.equal(table.getExecCalls(), 1);
+    t.equal(table.getExecCalls(), 0, 'should not refresh');
     t.deepEqual(data, [
       {name: 'bob', lastName: 'leponge', age: 129},
       {name: 'edited', lastName: 'bar', age: 66},

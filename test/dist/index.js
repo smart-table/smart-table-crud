@@ -678,30 +678,22 @@ const remove = curry((array, index) => array.filter((val, i) => index !== i));
 const insert = curry((array, newVal, index) => [...array.slice(0, index), newVal, ...array.slice(index)]);
 
 var crud = function ({data, table}) {
+  // empty and refill data keeping the same reference
   const mutateData = (newData) => {
-    data.splice(0, data.length);
+    data.splice(0);
     data.push(...newData);
   };
   const refresh = compose(mutateData, table.exec);
-
   return {
-    update(index, newVal){
-      const exec = compose(
-        replace(data, newVal),
-        refresh
-      );
-      return exec(index);
+    update(index,newVal){
+      return compose(replace(data,newVal),refresh)(index);
     },
     patch(index, newVal){
-      const exec = compose(
-        patch(data, newVal),
-        refresh);
-      return exec(index);
+      return patch(data, newVal, index);
     },
     remove: compose(remove(data), refresh),
     insert(newVal, index = 0){
-      const exec = compose(insert(data, newVal), refresh);
-      return exec(index);
+      return compose(insert(data, newVal), refresh)(index);
     },
     get: get(data)
   };
@@ -756,7 +748,7 @@ var index = plan$1()
     const table = mockTable();
     const crudTable = crud({data, table});
     crudTable.patch(1, {name: 'edited', age: 66});
-    t.equal(table.getExecCalls(), 1);
+    t.equal(table.getExecCalls(), 0, 'should not refresh');
     t.deepEqual(data, [
       {name: 'bob', lastName: 'leponge', age: 129},
       {name: 'edited', lastName: 'bar', age: 66},
