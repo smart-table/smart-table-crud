@@ -27,30 +27,22 @@ const remove = curry((array, index) => array.filter((val, i) => index !== i));
 const insert = curry((array, newVal, index) => [...array.slice(0, index), newVal, ...array.slice(index)]);
 
 var index = function ({data, table}) {
+  // empty and refill data keeping the same reference
   const mutateData = (newData) => {
-    data.splice(0, data.length);
+    data.splice(0);
     data.push(...newData);
   };
   const refresh = compose(mutateData, table.exec);
-
   return {
-    update(index, newVal){
-      const exec = compose(
-        replace(data, newVal),
-        refresh
-      );
-      return exec(index);
+    update(index,newVal){
+      return compose(replace(data,newVal),refresh)(index);
     },
     patch(index, newVal){
-      const exec = compose(
-        patch(data, newVal),
-        refresh);
-      return exec(index);
+      return patch(data, newVal, index);
     },
     remove: compose(remove(data), refresh),
     insert(newVal, index = 0){
-      const exec = compose(insert(data, newVal), refresh);
-      return exec(index);
+      return compose(insert(data, newVal), refresh)(index);
     },
     get: get(data)
   };
